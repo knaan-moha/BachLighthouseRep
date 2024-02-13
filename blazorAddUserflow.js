@@ -1,21 +1,6 @@
 const fs = require("fs");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
-//config for the browser types
-
-const browserPaths = {
-  edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-};
-
-// make the browser
-const browserType = process.argv[2] || "chrome";
-
-// make check if the browser type exits
-if (!Object.keys(browserPaths).includes(browserType)) {
-  console.error("Unsupported Browser Path!");
-  process.exit(1);
-}
 
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
@@ -332,11 +317,3 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await browser.close();
 };
 
-(async () => {
-  for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
-    console.log(`Starting trial ${trialNumber}...`);
-    await performTasksAndGenerateReport(trialNumber).catch((err) => {
-      console.error(`Error in trial ${trialNumber}:`, err);
-    });
-  }
-})();
