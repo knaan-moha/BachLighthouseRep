@@ -331,7 +331,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   fs.writeFileSync(`${reportPath}/${reportFilename}`, lhFlowReport);
   await browser.close();
 };
-//
+// trails
 (async () => {
   for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
     console.log(`Starting trial ${trialNumber}...`);
