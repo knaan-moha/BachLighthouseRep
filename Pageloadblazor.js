@@ -1,12 +1,22 @@
 const fs = require("fs");
+const os = require("os");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
-// defining for the browser path
-const browserPaths = {
+// defining for the browser path for mac os
+let browserPaths = {
   edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
   chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
+
+// env os config for window
+
+if (os.platform === "win32") {
+  browserPaths = {
+    edge: "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    // ad more for paths if it needs
+  };
+}
 
 // check for the browsers type
 
