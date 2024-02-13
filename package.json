@@ -12,6 +12,7 @@
   "dependencies": {
     "lighthouse": "^11.5.0",
     "open": "^10.0.3",
-    "puppeteer": "^21.9.0"
+    "puppeteer": "^21.9.0",
+    "socks-proxy-agent": "^8.0.2"
   }
 }

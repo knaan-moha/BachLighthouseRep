@@ -10,7 +10,7 @@ const browserPaths = {
 };
 
 // make the browser
-const browserType = process.argv[2] || "chrome";
+const browserType = process.argv[3] || "chrome";
 
 // make check if the browser type exits
 if (!Object.keys(browserPaths).includes(browserType)) {
