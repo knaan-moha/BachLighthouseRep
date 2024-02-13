@@ -6,8 +6,9 @@ const open = require("open");
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const flow = await lighthouse.startFlow(page, { name: "My User Flow" });
-
+  // !make change
   const timeout = 5000;
+
   page.setDefaultTimeout(timeout);
 
   {
