@@ -1,0 +1,10 @@
+{
+  "development": {
+    "blazorUrl": "http://localhost:5138/",
+    "reactUrl": "http://localhost:3000/"
+  },
+  "production": {
+    "blazorUrl": "https://balzorclient2.azurewebsites.net/",
+    "reactUrl": "https://reactcrud-client.azurewebsites.net/"
+  }
+}
