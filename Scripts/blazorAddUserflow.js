@@ -1,7 +1,7 @@
 const fs = require("fs");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
-//config for the browser types
+//? config for the browser types 
 
 const browserPaths = {
   edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
@@ -30,7 +30,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   const timeout = 10000;
   page.setDefaultTimeout(timeout);
 
-  const lhApi = await import("lighthouse"); // v10.0.0 or later
+  const lhApi = await import("lighthouse"); //? v10.0.0 or later
   const flags = {
     screenEmulation: {
       disabled: true,
@@ -72,7 +72,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:5138/students", {
+    await targetPage.goto("http://localhost:3000/", {
       waitUntil: "domcontentloaded",
     });
 
@@ -324,12 +324,14 @@ const performTasksAndGenerateReport = async (trails_num) => {
   }
   await lhFlow.endTimespan();
   const lhFlowReport = await lhFlow.generateReport();
+
   let reportPath = `./notDeployed/Blazor/${browserType}`;
   if (!fs.existsSync(reportPath)) {
     fs.mkdirSync(reportPath, { recursive: true });
   }
   const reportFilename = `blazorAdd${trails_num}ReportLight.html`;
   fs.writeFileSync(`${reportPath}/${reportFilename}`, lhFlowReport);
+
   await browser.close();
 };
 // trails

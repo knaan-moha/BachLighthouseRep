@@ -1,6 +1,7 @@
 const fs = require("fs");
 const os = require("os");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
+const urls = require("./urls");
 
 // defining for the browser path for mac os
 let browserPaths = {
@@ -58,7 +59,7 @@ const pageloadPerformance = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:5138/students");
+    await targetPage.goto(urls.blazorDevUrl);
     await Promise.all(promises);
   }
   await lhFlow.endNavigation();
