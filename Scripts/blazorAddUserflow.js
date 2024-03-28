@@ -3,12 +3,12 @@ const path = require("path");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
 const browserPaths = {
-  edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  // chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  //brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+  //edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+  //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
 
-const browserType = "edge";
+const browserType = "brave";
 
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
@@ -303,7 +303,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await lhFlow.endTimespan();
 
   const lhFlowReport = await lhFlow.generateReport();
-  let reportPath = `../UserFlows/NotDeployed/Blazor/Add${browserType}`;
+  let reportPath = `../UserFlows/NotDeployed/Blazor/Add/${browserType}`;
   fs.mkdirSync(reportPath, { recursive: true });
 
   const reportFilename = `blazorAdd${trails_num}ReportLight.html`;
