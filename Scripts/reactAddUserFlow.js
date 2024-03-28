@@ -22,9 +22,8 @@ const performTasksAndGenerateReport = async (trails_num) => {
 
   const lhApi = await import("lighthouse"); // v10.0.0 or later
   const flags = {
-    screenEmulation: {
-      disabled: true,
-    },
+    emulatedFormFactor: "desktop",
+    throttlingMethod: "simulate",
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
