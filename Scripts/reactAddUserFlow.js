@@ -84,7 +84,7 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
       targetPage.locator(":scope >>> #firstName"),
     ])
       .setTimeout(timeout)
-      .fill("mohamed");
+      .fill("Zekairia");
   }
   {
     const targetPage = page;
@@ -103,7 +103,7 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
       targetPage.locator(":scope >>> #lastName"),
     ])
       .setTimeout(timeout)
-      .fill("teset ");
+      .fill("Mohamed");
   }
   {
     const targetPage = page;
@@ -141,7 +141,7 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
       targetPage.locator(":scope >>> #age"),
     ])
       .setTimeout(timeout)
-      .fill("23");
+      .fill("27");
   }
   {
     const targetPage = page;
@@ -160,7 +160,7 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
       targetPage.locator(":scope >>> #phoneNumber"),
     ])
       .setTimeout(timeout)
-      .fill("544584");
+      .fill("48679768");
   }
   {
     const targetPage = page;

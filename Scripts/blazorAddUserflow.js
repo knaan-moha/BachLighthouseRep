@@ -92,7 +92,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #firstName"),
     ])
       .setTimeout(timeout)
-      .fill("mohamed");
+      .fill("Zekairia");
   }
   {
     const targetPage = page;
@@ -110,7 +110,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #lastName"),
     ])
       .setTimeout(timeout)
-      .fill("zekaria");
+      .fill("Mohamed");
   }
   {
     const targetPage = page;
@@ -167,19 +167,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
         },
       });
   }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
-      ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
-    ])
-      .setTimeout(timeout)
-      .fill("");
-  }
+
   {
     const targetPage = page;
     await targetPage.keyboard.down("Backspace");
@@ -199,7 +187,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #age"),
     ])
       .setTimeout(timeout)
-      .fill("45");
+      .fill("27");
   }
   {
     const targetPage = page;
@@ -224,7 +212,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #phoneNumber"),
     ])
       .setTimeout(timeout)
-      .fill("544584");
+      .fill("48679768");
   }
   {
     const targetPage = page;
