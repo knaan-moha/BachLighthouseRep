@@ -303,7 +303,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await lhFlow.endTimespan();
 
   const lhFlowReport = await lhFlow.generateReport();
-  let reportPath = `../Pageloads/notDeployed/Blazor/${browserType}`;
+  let reportPath = `../UserFlows/NotDeployed/Blazor/Add${browserType}`;
   fs.mkdirSync(reportPath, { recursive: true });
 
   const reportFilename = `blazorAdd${trails_num}ReportLight.html`;
