@@ -1,22 +1,19 @@
 const fs = require("fs");
+const path = require("path");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
-//? config for the browser types 
+//? config for the browser types
 
 const browserPaths = {
   edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-  brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+  // chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  //brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
 
 // make the browser
-const browserType = process.argv[3] || "chrome";
+const browserType = "edge";
 
 // make check if the browser type exits
-if (!Object.keys(browserPaths).includes(browserType)) {
-  console.error("Unsupported Browser Path!");
-  process.exit(1);
-}
 
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
@@ -27,7 +24,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   });
 
   const page = await browser.newPage();
-  const timeout = 10000;
+  const timeout = 5000;
   page.setDefaultTimeout(timeout);
 
   const lhApi = await import("lighthouse"); //? v10.0.0 or later
@@ -49,7 +46,6 @@ const performTasksAndGenerateReport = async (trails_num) => {
       deviceScaleFactor: 1,
       disabled: false,
     },
-    emulatedUserAgent: "your-desktop-user-agent-string-here",
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
@@ -72,7 +68,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:3000/", {
+    await targetPage.goto("http://localhost:5092/", {
       waitUntil: "domcontentloaded",
     });
 
@@ -325,12 +321,16 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await lhFlow.endTimespan();
   const lhFlowReport = await lhFlow.generateReport();
 
-  let reportPath = `./notDeployed/Blazor/${browserType}`;
-  if (!fs.existsSync(reportPath)) {
-    fs.mkdirSync(reportPath, { recursive: true });
-  }
+  let reportPath = `../Pageloads/notDeployed/Blazor/${browserType}`;
+  fs.mkdirSync(reportPath, { recursive: true });
+
   const reportFilename = `blazorAdd${trails_num}ReportLight.html`;
-  fs.writeFileSync(`${reportPath}/${reportFilename}`, lhFlowReport);
+  try {
+    fs.writeFileSync(path.join(reportPath, reportFilename), lhFlowReport);
+    //console.log("Report saved successfully!");
+  } catch (error) {
+    console.error("Error saving the report:", error);
+  }
 
   await browser.close();
 };
