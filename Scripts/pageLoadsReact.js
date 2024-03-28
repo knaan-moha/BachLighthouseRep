@@ -46,8 +46,6 @@ const performTasksAndGenerateReport = async (trails_num) => {
     await Promise.all(promises);
   }
 
-  await page.deleteCookie(...(await page.cookies()));
-
   //? Clear localStorage and sessionStorage after the page has loaded
   try {
     await page.evaluate(() => {

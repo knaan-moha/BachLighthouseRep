@@ -2,33 +2,54 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 
+//? config for the browser types
+
 const browserPaths = {
   edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
   // chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   //brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
 
+// make the browser
 const browserType = "edge";
+
+// make check if the browser type exits
 
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
-    setViewport: null,
     executablePath: browserPaths[browserType],
+    // "Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
+    // Path to Brave
   });
+
   const page = await browser.newPage();
   const timeout = 5000;
   page.setDefaultTimeout(timeout);
 
-  const lhApi = await import("lighthouse"); // v10.0.0 or later
+  const lhApi = await import("lighthouse"); //? v10.0.0 or later
   const flags = {
     screenEmulation: {
       disabled: true,
+      throttle: true,
+    },
+    throttlingMethod: "devtools",
+    throttling: {
+      rttMs: 150,
+      throughputKbps: 900,
+      cpuSlowdownMultiplier: 1,
+    },
+    screenEmulation: {
+      mobile: false,
+      width: 1350,
+      height: 940,
+      deviceScaleFactor: 1,
+      disabled: false,
     },
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
-    name: "blazorAddUserFlow",
+    name: "blazorAddUserflow",
     config,
     flags,
   });
@@ -36,7 +57,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
     const targetPage = page;
     await targetPage.setViewport({
       width: 1512,
-      height: 769,
+      height: 447,
     });
   }
   await lhFlow.startNavigation();
@@ -47,25 +68,31 @@ const performTasksAndGenerateReport = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:5092/");
+    await targetPage.goto("http://localhost:5092/", {
+      waitUntil: "domcontentloaded",
+    });
+
     await Promise.all(promises);
   }
+
   await lhFlow.endNavigation();
   await lhFlow.startTimespan();
   {
     const targetPage = page;
     await puppeteer.Locator.race([
       targetPage.locator("::-p-aria(New Student)"),
-      targetPage.locator("#Add"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Add\\"])'),
-      targetPage.locator(":scope >>> #Add"),
+      targetPage.locator("article > div > a"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/a)'
+      ),
+      targetPage.locator(":scope >>> article > div > a"),
       targetPage.locator("::-p-text(New Student)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 48,
-          y: 10.40625,
+          x: 60,
+          y: 17.0078125,
         },
       });
   }
@@ -79,8 +106,8 @@ const performTasksAndGenerateReport = async (trails_num) => {
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 160,
-          y: 15.8125,
+          x: 84,
+          y: 11.8125,
         },
       });
   }
@@ -92,7 +119,27 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #firstName"),
     ])
       .setTimeout(timeout)
-      .fill("mohamed");
+      .fill("knaan");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("Tab");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("Tab");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("form > div > div:nth-of-type(2) > input"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[2]/input)'
+      ),
+      targetPage.locator(":scope >>> form > div > div:nth-of-type(2) > input"),
+    ])
+      .setTimeout(timeout)
+      .fill("moh");
   }
   {
     const targetPage = page;
@@ -110,7 +157,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator(":scope >>> #lastName"),
     ])
       .setTimeout(timeout)
-      .fill("zekaria");
+      .fill("mohame@uia.no");
   }
   {
     const targetPage = page;
@@ -123,137 +170,100 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("#email"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
-      targetPage.locator(":scope >>> #email"),
+      targetPage.locator(
+        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
+      ),
+      targetPage.locator("div:nth-of-type(4) > div:nth-of-type(1) > input"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[4]/div[1]/input)'
+      ),
+      targetPage.locator(
+        ":scope >>> div:nth-of-type(4) > div:nth-of-type(1) > input"
+      ),
     ])
       .setTimeout(timeout)
-      .fill("test@uia.no");
+      .fill("23");
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
+      targetPage.locator("div:nth-of-type(4) > div:nth-of-type(2) > input"),
       targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[4]/div[2]/input)'
       ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
+      targetPage.locator(
+        ":scope >>> div:nth-of-type(4) > div:nth-of-type(2) > input"
+      ),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 159,
-          y: 12.8125,
+          x: 26,
+          y: 21.8125,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
+      targetPage.locator("div:nth-of-type(4) > div:nth-of-type(2) > input"),
       targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[4]/div[2]/input)'
       ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
+      targetPage.locator(
+        ":scope >>> div:nth-of-type(4) > div:nth-of-type(2) > input"
+      ),
+    ])
+      .setTimeout(timeout)
+      .fill("83838383");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("div:nth-of-type(5) > input"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[5]/input)'
+      ),
+      targetPage.locator(":scope >>> div:nth-of-type(5) > input"),
+      targetPage.locator("::-p-text(2024-01-27)"),
     ])
       .setTimeout(timeout)
       .click({
-        count: 2,
         offset: {
-          x: 159,
-          y: 12.8125,
+          x: 359,
+          y: 24.8125,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
+      targetPage.locator("div:nth-of-type(5) > input"),
       targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[5]/input)'
       ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
+      targetPage.locator(":scope >>> div:nth-of-type(5) > input"),
+      targetPage.locator("::-p-text(2024-01-27)"),
     ])
       .setTimeout(timeout)
-      .fill("");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Backspace");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Backspace");
+      .fill("2024-01-28");
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
       targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
+        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"combobox\\"])'
       ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
-    ])
-      .setTimeout(timeout)
-      .fill("45");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#phoneNumber"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"phoneNumber\\"])'),
-      targetPage.locator(":scope >>> #phoneNumber"),
+      targetPage.locator("select"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[6]/select)'
+      ),
+      targetPage.locator(":scope >>> select"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 42,
-          y: 8.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#phoneNumber"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"phoneNumber\\"])'),
-      targetPage.locator(":scope >>> #phoneNumber"),
-    ])
-      .setTimeout(timeout)
-      .fill("544584");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-28)"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 332,
-          y: 8.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-28)"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 391,
+          x: 41,
           y: 18.8125,
         },
       });
@@ -266,27 +276,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       ),
       targetPage.locator("select"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div/div[6]/select)'
-      ),
-      targetPage.locator(":scope >>> select"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 78,
-          y: 25.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"combobox\\"])'
-      ),
-      targetPage.locator("select"),
-      targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div/div[6]/select)'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div/div[6]/select)'
       ),
       targetPage.locator(":scope >>> select"),
     ])
@@ -296,25 +286,42 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("::-p-aria(Save)"),
-      targetPage.locator("button"),
+      targetPage.locator("form > div"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/button)'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/div)'
       ),
-      targetPage.locator(":scope >>> button"),
+      targetPage.locator(":scope >>> form > div"),
+    ])
+      .setTimeout(timeout)
+      .click({
+        offset: {
+          x: 882,
+          y: 226.8125,
+        },
+      });
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Save)"),
+      targetPage.locator("main button"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/form/button)'
+      ),
+      targetPage.locator(":scope >>> main button"),
       targetPage.locator("::-p-text(Save)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 26,
-          y: 15.8125,
+          x: 30,
+          y: 22.8125,
         },
       });
   }
   await lhFlow.endTimespan();
-
   const lhFlowReport = await lhFlow.generateReport();
+
   let reportPath = `../Pageloads/notDeployed/Blazor/${browserType}`;
   fs.mkdirSync(reportPath, { recursive: true });
 
@@ -328,8 +335,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
 
   await browser.close();
 };
-
-// trials
+// trails
 (async () => {
   for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
     console.log(`Starting trial ${trialNumber}...`);
