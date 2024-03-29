@@ -6,7 +6,6 @@ const browserPaths = {
   //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
-
 const browserType = "brave";
 
 const performTasksAndGenerateReport = async (trails_num) => {
@@ -21,12 +20,13 @@ const performTasksAndGenerateReport = async (trails_num) => {
 
   const lhApi = await import("lighthouse"); // v10.0.0 or later
   const flags = {
-    emulatedFormFactor: "desktop",
-    throttlingMethod: "simulate",
+    screenEmulation: {
+      disabled: true,
+    },
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
-    name: "reactDeleteUserflow",
+    name: "blazorDeleteUserflow",
     config,
     flags,
   });
@@ -45,7 +45,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:3000/");
+    await targetPage.goto("http://localhost:5092/");
     await Promise.all(promises);
   }
   await lhFlow.endNavigation();
@@ -55,26 +55,24 @@ const performTasksAndGenerateReport = async (trails_num) => {
     await puppeteer.Locator.race([
       targetPage.locator("tr:nth-of-type(1) button > i"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"root\\"]/div/table/tbody/tr[1]/td[6]/button/i)'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/table/tbody/tr[1]/td[6]/button/i)'
       ),
       targetPage.locator(":scope >>> tr:nth-of-type(1) button > i"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 9.296875,
-          y: 12,
+          x: 8.1796875,
+          y: 4.40625,
         },
       });
   }
   await lhFlow.endTimespan();
   const lhFlowReport = await lhFlow.generateReport();
 
-  let reportPath = `../UserFlows/notDeployed/React/Delete/${browserType}`;
-
+  let reportPath = `../UserFlows/notDeployed/Blazor/Delete/${browserType}`;
   fs.mkdirSync(reportPath, { recursive: true });
-
-  const reportFilename = `reactDelete${trails_num}ReportLight.html`;
+  const reportFilename = `blazorDelete${trails_num}ReportLight.html`;
   try {
     fs.writeFileSync(path.join(reportPath, reportFilename), lhFlowReport);
     //console.log("Report saved successfully!");
@@ -84,6 +82,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
 
   await browser.close();
 };
+
 //* trails
 (async () => {
   for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
