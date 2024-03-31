@@ -12,7 +12,7 @@ const browserType = "brave";
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
-    setViewport: null,
+    defaultViewport: null,
     executablePath: browserPaths[browserType],
   });
   const page = await browser.newPage();

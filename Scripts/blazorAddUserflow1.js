@@ -18,6 +18,7 @@ const browserType = "edge";
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
+    defaultViewport: null,
     executablePath: browserPaths[browserType],
     // "Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
     // Path to Brave

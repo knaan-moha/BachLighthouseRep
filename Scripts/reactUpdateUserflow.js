@@ -7,7 +7,6 @@ const browserPaths = {
   //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
-
 const browserType = "brave";
 
 const performTasksAndGenerateReport = async (trails_num) => {
@@ -25,9 +24,10 @@ const performTasksAndGenerateReport = async (trails_num) => {
     emulatedFormFactor: "desktop",
     throttlingMethod: "simulate",
   };
+
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
-    name: "blazorAddUserFlow",
+    name: "ReactUpdate",
     config,
     flags,
   });
@@ -35,7 +35,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
     const targetPage = page;
     await targetPage.setViewport({
       width: 1512,
-      height: 769,
+      height: 441,
     });
   }
   await lhFlow.startNavigation();
@@ -46,7 +46,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       promises.push(targetPage.waitForNavigation());
     };
     startWaitingForEvents();
-    await targetPage.goto("http://localhost:5092/");
+    await targetPage.goto("http://localhost:3000/");
     await Promise.all(promises);
   }
   await lhFlow.endNavigation();
@@ -54,115 +54,34 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("::-p-aria(New Student)"),
-      targetPage.locator("#Add"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Add\\"])'),
-      targetPage.locator(":scope >>> #Add"),
-      targetPage.locator("::-p-text(New Student)"),
+      targetPage.locator("tr:nth-of-type(1) a > i"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"root\\"]/div/table/tbody/tr[1]/td[6]/a/i)'
+      ),
+      targetPage.locator(":scope >>> tr:nth-of-type(1) a > i"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 48,
-          y: 10.40625,
+          x: 5.296875,
+          y: 9,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(First Name)"),
       targetPage.locator("#firstName"),
       targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
       targetPage.locator(":scope >>> #firstName"),
+      targetPage.locator("::-p-text(mohamed)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 160,
-          y: 15.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#firstName"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
-      targetPage.locator(":scope >>> #firstName"),
-    ])
-      .setTimeout(timeout)
-      .fill("Zekairia");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Tab");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Tab");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#lastName"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"lastName\\"])'),
-      targetPage.locator(":scope >>> #lastName"),
-    ])
-      .setTimeout(timeout)
-      .fill("Mohamed");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Tab");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Tab");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#email"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
-      targetPage.locator(":scope >>> #email"),
-    ])
-      .setTimeout(timeout)
-      .fill("test@uia.no");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
-      ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 159,
-          y: 12.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
-      ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        count: 2,
-        offset: {
-          x: 159,
-          y: 12.8125,
+          x: 347,
+          y: 25.40625,
         },
       });
   }
@@ -178,37 +97,137 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
-      ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
+      targetPage.locator("::-p-aria(First Name)"),
+      targetPage.locator("#firstName"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
+      targetPage.locator(":scope >>> #firstName"),
+      targetPage.locator("::-p-text(mohamed)"),
     ])
       .setTimeout(timeout)
-      .fill("27");
+      .fill("Kate");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("Tab");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("Tab");
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("#phoneNumber"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"phoneNumber\\"])'),
-      targetPage.locator(":scope >>> #phoneNumber"),
+      targetPage.locator("::-p-aria(Last Name)"),
+      targetPage.locator("#lastName"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"lastName\\"])'),
+      targetPage.locator(":scope >>> #lastName"),
+      targetPage.locator("::-p-text(teset)"),
+    ])
+      .setTimeout(timeout)
+      .fill("Lobkovskaya");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Email)"),
+      targetPage.locator("#email"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
+      targetPage.locator(":scope >>> #email"),
+      targetPage.locator("::-p-text(kate@uia.no)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 42,
-          y: 8.8125,
+          x: 259,
+          y: 20.40625,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
+      targetPage.locator("div:nth-of-type(2) > div"),
+      targetPage.locator(
+        '::-p-xpath(//*[@data-testid=\\"add-student-form\\"]/div[2]/div)'
+      ),
+      targetPage.locator(":scope >>> div:nth-of-type(2) > div"),
+      targetPage.locator("::-p-text(Emailtest@uia.no)"),
+    ])
+      .setTimeout(timeout)
+      .click({
+        delay: 783.2000000476837,
+        offset: {
+          x: 10,
+          y: 49.40625,
+        },
+      });
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Email)"),
+      targetPage.locator("#email"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
+      targetPage.locator(":scope >>> #email"),
+      targetPage.locator("::-p-text(test@uia.no)"),
+    ])
+      .setTimeout(timeout)
+      .fill("kate@uia.no");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Age)"),
+      targetPage.locator("#age"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
+      targetPage.locator(":scope >>> #age"),
+      targetPage.locator("::-p-text(23)"),
+    ])
+      .setTimeout(timeout)
+      .click({
+        offset: {
+          x: 63,
+          y: 22.40625,
+        },
+      });
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Age)"),
+      targetPage.locator("#age"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
+      targetPage.locator(":scope >>> #age"),
+      targetPage.locator("::-p-text(23)"),
+    ])
+      .setTimeout(timeout)
+      .fill("20");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Phone Number)"),
       targetPage.locator("#phoneNumber"),
       targetPage.locator('::-p-xpath(//*[@id=\\"phoneNumber\\"])'),
       targetPage.locator(":scope >>> #phoneNumber"),
+      targetPage.locator("::-p-text(544584)"),
+    ])
+      .setTimeout(timeout)
+      .click({
+        offset: {
+          x: 100,
+          y: 21.40625,
+        },
+      });
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Phone Number)"),
+      targetPage.locator("#phoneNumber"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"phoneNumber\\"])'),
+      targetPage.locator(":scope >>> #phoneNumber"),
+      targetPage.locator("::-p-text(544584)"),
     ])
       .setTimeout(timeout)
       .fill("48679768");
@@ -216,107 +235,101 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
+      targetPage.locator("::-p-aria(Register Date)"),
+      targetPage.locator("#register"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"register\\"])'),
+      targetPage.locator(":scope >>> #register"),
       targetPage.locator("::-p-text(2024-03-28)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 332,
-          y: 8.8125,
+          x: 393,
+          y: 16.40625,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
+      targetPage.locator("::-p-aria(Register Date)"),
+      targetPage.locator("#register"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"register\\"])'),
+      targetPage.locator(":scope >>> #register"),
       targetPage.locator("::-p-text(2024-03-28)"),
     ])
       .setTimeout(timeout)
+      .fill("2024-03-29");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("::-p-aria(Course)"),
+      targetPage.locator("select"),
+      targetPage.locator(
+        '::-p-xpath(//*[@data-testid=\\"add-student-form\\"]/div[4]/div[2]/select)'
+      ),
+      targetPage.locator(":scope >>> select"),
+      targetPage.locator("::-p-text(1)"),
+    ])
+      .setTimeout(timeout)
       .click({
         offset: {
-          x: 391,
-          y: 18.8125,
+          x: 102,
+          y: 16.40625,
         },
       });
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"combobox\\"])'
-      ),
+      targetPage.locator("::-p-aria(Course)"),
       targetPage.locator("select"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div/div[6]/select)'
+        '::-p-xpath(//*[@data-testid=\\"add-student-form\\"]/div[4]/div[2]/select)'
       ),
       targetPage.locator(":scope >>> select"),
+      targetPage.locator("::-p-text(1)"),
     ])
       .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 78,
-          y: 25.8125,
-        },
-      });
+      .fill("2");
   }
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"combobox\\"])'
-      ),
-      targetPage.locator("select"),
-      targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div/div[6]/select)'
-      ),
-      targetPage.locator(":scope >>> select"),
-    ])
-      .setTimeout(timeout)
-      .fill("1");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("::-p-aria(Save)"),
+      targetPage.locator("::-p-aria(Update)"),
       targetPage.locator("button"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/button)'
+        '::-p-xpath(//*[@data-testid=\\"add-student-form\\"]/button)'
       ),
       targetPage.locator(":scope >>> button"),
-      targetPage.locator("::-p-text(Save)"),
+      targetPage.locator("::-p-text(Update)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 26,
-          y: 15.8125,
+          x: 46,
+          y: 19.40625,
         },
       });
   }
   await lhFlow.endTimespan();
-
   const lhFlowReport = await lhFlow.generateReport();
-  let reportPath = `../UserFlows/NotDeployed/Blazor/Add/${browserType}`;
+  let reportPath = `../UserFlows/notDeployed/React/Update/${browserType}`;
+
   fs.mkdirSync(reportPath, { recursive: true });
 
-  const reportFilename = `blazorAdd${trails_num}ReportLight.html`;
+  const reportFilename = `reactUpdate${trails_num}ReportLight.html`;
   try {
     fs.writeFileSync(path.join(reportPath, reportFilename), lhFlowReport);
     //console.log("Report saved successfully!");
   } catch (error) {
     console.error("Error saving the report:", error);
   }
-
   await browser.close();
 };
 
-// trials
+//* trails
 (async () => {
   for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
     console.log(`Starting trial ${trialNumber}...`);

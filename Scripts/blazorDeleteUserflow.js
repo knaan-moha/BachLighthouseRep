@@ -11,7 +11,7 @@ const browserType = "brave";
 const performTasksAndGenerateReport = async (trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
-    setViewport: null,
+    defaultViewport: null,
     executablePath: browserPaths[browserType],
   });
   const page = await browser.newPage();
@@ -20,9 +20,8 @@ const performTasksAndGenerateReport = async (trails_num) => {
 
   const lhApi = await import("lighthouse"); // v10.0.0 or later
   const flags = {
-    screenEmulation: {
-      disabled: true,
-    },
+    emulatedFormFactor: "desktop",
+    throttlingMethod: "simulate",
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
