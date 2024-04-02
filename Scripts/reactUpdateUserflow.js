@@ -7,9 +7,8 @@ const browserPaths = {
   //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
-const browserType = "brave";
 
-const performTasksAndGenerateReport = async (trails_num) => {
+const performTasksAndGenerateReport = async (browserType, trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
