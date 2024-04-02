@@ -328,12 +328,23 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
   await browser.close();
 };
 
-//* trails
 (async () => {
-  for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
-    console.log(`Starting trial ${trialNumber}...`);
-    await performTasksAndGenerateReport(trialNumber).catch((err) => {
-      console.error(`Error in trial ${trialNumber}:`, err);
-    });
+  // we make iterative over the browser as key
+  for (const browserType of Object.keys(browserPaths)) {
+    console.log(`Performance Measuring with browser  ${browserType}...`);
+
+    // trails
+    for (let trailNumber = 1; trailNumber <= 2; trailNumber++) {
+      console.log(`Starting trial ${trailNumber}...`);
+
+      await performTasksAndGenerateReport(browserType, trailNumber).catch(
+        (err) => {
+          console.error(
+            `Error in trail ${trailNumber} with ${browserType}:`,
+            err
+          );
+        }
+      );
+    }
   }
 })();
