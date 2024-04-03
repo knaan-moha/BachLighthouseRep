@@ -3,13 +3,12 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
 const path = require("path");
 
 const browserPaths = {
-  //edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+  chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
-const browserType = "brave";
 
-const performTasksAndGenerateReport = async (trails_num) => {
+const performTasksAndGenerateReport = async (browserType, trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
@@ -34,8 +33,8 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await targetPage.setViewport({
-      width: 1512,
-      height: 774,
+      width: 2560,
+      height: 1154,
     });
   }
   await lhFlow.startNavigation();
@@ -54,17 +53,17 @@ const performTasksAndGenerateReport = async (trails_num) => {
   {
     const targetPage = page;
     await puppeteer.Locator.race([
-      targetPage.locator("tr:nth-of-type(1) a > i"),
+      targetPage.locator("tr:nth-of-type(1) a"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/table/tbody/tr[1]/td[6]/a/i)'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/table/tbody/tr[1]/td[6]/a)'
       ),
-      targetPage.locator(":scope >>> tr:nth-of-type(1) a > i"),
+      targetPage.locator(":scope >>> tr:nth-of-type(1) a"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 3.9140625,
-          y: 10.40625,
+          x: 4.140625,
+          y: 11.40625,
         },
       });
   }
@@ -74,45 +73,42 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator("#firstName"),
       targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
       targetPage.locator(":scope >>> #firstName"),
-      targetPage.locator("::-p-text(Kate)"),
+      targetPage.locator("::-p-text(zekaria)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 307,
-          y: 15.8125,
+          x: 212,
+          y: 23.8125,
         },
       });
   }
   {
     const targetPage = page;
+    await targetPage.keyboard.down("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("a");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("a");
+  }
+  {
+    const targetPage = page;
     await puppeteer.Locator.race([
       targetPage.locator("#firstName"),
       targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
       targetPage.locator(":scope >>> #firstName"),
-      targetPage.locator("::-p-text(Kate)"),
+      targetPage.locator("::-p-text(zekaria)"),
     ])
       .setTimeout(timeout)
-      .fill("");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Backspace");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Backspace");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#firstName"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"firstName\\"])'),
-      targetPage.locator(":scope >>> #firstName"),
-      targetPage.locator("::-p-text(Kate)"),
-    ])
-      .setTimeout(timeout)
-      .fill("Kate");
+      .fill("knaan");
   }
   {
     const targetPage = page;
@@ -131,15 +127,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator("::-p-text(mohamed)"),
     ])
       .setTimeout(timeout)
-      .fill("Lobkovskaya");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Tab");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Tab");
+      .fill("mohmaed ");
   }
   {
     const targetPage = page;
@@ -147,10 +135,53 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator("#email"),
       targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
       targetPage.locator(":scope >>> #email"),
-      targetPage.locator("::-p-text(test@uia.no)"),
+      targetPage.locator("::-p-text(teste@uia.no)"),
     ])
       .setTimeout(timeout)
-      .fill("kate@uia.no");
+      .click({
+        offset: {
+          x: 142,
+          y: 11.8125,
+        },
+      });
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("a");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("Meta");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("#email"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
+      targetPage.locator(":scope >>> #email"),
+      targetPage.locator("::-p-text(teste@uia.no)"),
+    ])
+      .setTimeout(timeout)
+      .fill("");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("a");
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator("#email"),
+      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
+      targetPage.locator(":scope >>> #email"),
+      targetPage.locator("::-p-text(teste@uia.no)"),
+    ])
+      .setTimeout(timeout)
+      .fill("knaa@uia.no");
   }
   {
     const targetPage = page;
@@ -165,31 +196,26 @@ const performTasksAndGenerateReport = async (trails_num) => {
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 262,
-          y: 10.8125,
+          x: 243,
+          y: 20.8125,
         },
       });
   }
   {
     const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator(
-        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"spinbutton\\"])'
-      ),
-      targetPage.locator("#age"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"age\\"])'),
-      targetPage.locator(":scope >>> #age"),
-    ])
-      .setTimeout(timeout)
-      .fill("");
+    await targetPage.keyboard.down("Meta");
   }
   {
     const targetPage = page;
-    await targetPage.keyboard.down("Backspace");
+    await targetPage.keyboard.down("a");
   }
   {
     const targetPage = page;
-    await targetPage.keyboard.up("Backspace");
+    await targetPage.keyboard.up("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("a");
   }
   {
     const targetPage = page;
@@ -215,10 +241,26 @@ const performTasksAndGenerateReport = async (trails_num) => {
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 137,
+          x: 126,
           y: 20.8125,
         },
       });
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.down("a");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("Meta");
+  }
+  {
+    const targetPage = page;
+    await targetPage.keyboard.up("a");
   }
   {
     const targetPage = page;
@@ -229,7 +271,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator("::-p-text(48679768)"),
     ])
       .setTimeout(timeout)
-      .fill("486797689");
+      .fill("373837383");
   }
   {
     const targetPage = page;
@@ -237,58 +279,15 @@ const performTasksAndGenerateReport = async (trails_num) => {
       targetPage.locator("#Register"),
       targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
       targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-30)"),
+      targetPage.locator("::-p-text(2024-04-02)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 259,
-          y: 26.8125,
+          x: 400,
+          y: 14.8125,
         },
       });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-30)"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 249,
-          y: 30.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-30)"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 384,
-          y: 22.8125,
-        },
-      });
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#Register"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
-      targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-30)"),
-    ])
-      .setTimeout(timeout)
-      .fill("2024-03-31");
   }
   {
     const targetPage = page;
@@ -298,17 +297,34 @@ const performTasksAndGenerateReport = async (trails_num) => {
       ),
       targetPage.locator("select"),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div/div[6]/select)'
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div[4]/div[2]/select)'
       ),
       targetPage.locator(":scope >>> select"),
+      targetPage.locator("::-p-text(1)"),
     ])
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 58,
-          y: 12.8125,
+          x: 70,
+          y: 26.8125,
         },
       });
+  }
+  {
+    const targetPage = page;
+    await puppeteer.Locator.race([
+      targetPage.locator(
+        '::-p-aria([role=\\"article\\"]) >>>> ::-p-aria([role=\\"combobox\\"])'
+      ),
+      targetPage.locator("select"),
+      targetPage.locator(
+        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/form/div[4]/div[2]/select)'
+      ),
+      targetPage.locator(":scope >>> select"),
+      targetPage.locator("::-p-text(1)"),
+    ])
+      .setTimeout(timeout)
+      .fill("2");
   }
   {
     const targetPage = page;
@@ -323,8 +339,8 @@ const performTasksAndGenerateReport = async (trails_num) => {
       .setTimeout(timeout)
       .click({
         offset: {
-          x: 36,
-          y: 22.8125,
+          x: 48,
+          y: 15.8125,
         },
       });
   }
@@ -342,12 +358,23 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await browser.close();
 };
 
-//* trails
 (async () => {
-  for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
-    console.log(`Starting trial ${trialNumber}...`);
-    await performTasksAndGenerateReport(trialNumber).catch((err) => {
-      console.error(`Error in trial ${trialNumber}:`, err);
-    });
+  //? we make iterative over the browser as key
+  for (const browserType of Object.keys(browserPaths)) {
+    console.log(`Performance Measuring with browser  ${browserType}...`);
+
+    //? trails
+    for (let trailNumber = 1; trailNumber <= 2; trailNumber++) {
+      console.log(`Starting trial ${trailNumber}...`);
+
+      await performTasksAndGenerateReport(browserType, trailNumber).catch(
+        (err) => {
+          console.error(
+            `Error in trail ${trailNumber} with ${browserType}:`,
+            err
+          );
+        }
+      );
+    }
   }
 })();
