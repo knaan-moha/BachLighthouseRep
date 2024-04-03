@@ -108,7 +108,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(zekaria)"),
     ])
       .setTimeout(timeout)
-      .fill("knaan");
+      .fill("Kate");
   }
   {
     const targetPage = page;
@@ -127,7 +127,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(mohamed)"),
     ])
       .setTimeout(timeout)
-      .fill("mohmaed ");
+      .fill("Lobkovskaya");
   }
   {
     const targetPage = page;
@@ -145,18 +145,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
         },
       });
   }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Meta");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("a");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Meta");
-  }
+
   {
     const targetPage = page;
     await puppeteer.Locator.race([
@@ -166,22 +155,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(teste@uia.no)"),
     ])
       .setTimeout(timeout)
-      .fill("");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("a");
-  }
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("#email"),
-      targetPage.locator('::-p-xpath(//*[@id=\\"email\\"])'),
-      targetPage.locator(":scope >>> #email"),
-      targetPage.locator("::-p-text(teste@uia.no)"),
-    ])
-      .setTimeout(timeout)
-      .fill("knaa@uia.no");
+      .fill("kate@uia.no");
   }
   {
     const targetPage = page;
@@ -201,22 +175,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
         },
       });
   }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Meta");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("a");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Meta");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("a");
-  }
+
   {
     const targetPage = page;
     await puppeteer.Locator.race([
@@ -228,7 +187,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator(":scope >>> #age"),
     ])
       .setTimeout(timeout)
-      .fill("23");
+      .fill("20");
   }
   {
     const targetPage = page;
@@ -246,22 +205,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
         },
       });
   }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("Meta");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.down("a");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("Meta");
-  }
-  {
-    const targetPage = page;
-    await targetPage.keyboard.up("a");
-  }
+
   {
     const targetPage = page;
     await puppeteer.Locator.race([
@@ -271,7 +215,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(48679768)"),
     ])
       .setTimeout(timeout)
-      .fill("373837383");
+      .fill("48679768");
   }
   {
     const targetPage = page;
@@ -377,4 +321,6 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       );
     }
   }
+
+  process.exit();
 })();
