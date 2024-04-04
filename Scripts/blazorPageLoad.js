@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
+
 const browserPaths = {
   edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
   chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -10,6 +11,7 @@ const browserPaths = {
 const performTasksAndGenerateReport = async (browserType, trails_num) => {
   const browser = await puppeteer.launch({
     headless: false,
+    // use the default size of the browser window
     defaultViewport: null,
     executablePath: browserPaths[browserType],
   });
@@ -24,17 +26,11 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
-    name: "blazorDeleteUserflow",
+    name: "reactpageLoads",
     config,
     flags,
   });
-  {
-    const targetPage = page;
-    await targetPage.setViewport({
-      width: 1512,
-      height: 434,
-    });
-  }
+
   await lhFlow.startNavigation();
   {
     const targetPage = page;
@@ -46,38 +42,30 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
     await targetPage.goto("http://localhost:5092/");
     await Promise.all(promises);
   }
-  await lhFlow.endNavigation();
-  await lhFlow.startTimespan();
-  {
-    const targetPage = page;
-    await puppeteer.Locator.race([
-      targetPage.locator("tr:nth-of-type(1) button > i"),
-      targetPage.locator(
-        '::-p-xpath(//*[@id=\\"app\\"]/div/main/article/div/table/tbody/tr[1]/td[6]/button/i)'
-      ),
-      targetPage.locator(":scope >>> tr:nth-of-type(1) button > i"),
-    ])
-      .setTimeout(timeout)
-      .click({
-        offset: {
-          x: 8.1796875,
-          y: 4.40625,
-        },
-      });
-  }
-  await lhFlow.endTimespan();
-  const lhFlowReport = await lhFlow.generateReport();
 
-  let reportPath = `../UserFlows/notDeployed/Blazor/Delete/${browserType}`;
+  await page.deleteCookie(...(await page.cookies()));
+
+  //? Clear localStorage and sessionStorage after the page has loaded
+  try {
+    await page.evaluate(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+    });
+  } catch (err) {
+    console.error("Error clearing storage:", err);
+  }
+  await lhFlow.endNavigation();
+  const lhFlowReport = await lhFlow.generateReport();
+  let reportPath = `../Pageloads/notDeployed/Blazor/${browserType}`;
   fs.mkdirSync(reportPath, { recursive: true });
-  const reportFilename = `blazorDelete${trails_num}ReportLight.html`;
+
+  const reportFilename = `blazorPageLoad${trails_num}ReportLight.html`;
   try {
     fs.writeFileSync(path.join(reportPath, reportFilename), lhFlowReport);
     //console.log("Report saved successfully!");
   } catch (error) {
     console.error("Error saving the report:", error);
   }
-
   await browser.close();
 };
 
@@ -100,4 +88,5 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       );
     }
   }
+  process.exit();
 })();
