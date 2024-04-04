@@ -89,7 +89,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator(":scope >>> #firstName"),
     ])
       .setTimeout(timeout)
-      .fill("Zekairia");
+      .fill("OriginalFirstName");
   }
   {
     const targetPage = page;
@@ -107,7 +107,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator(":scope >>> #lastName"),
     ])
       .setTimeout(timeout)
-      .fill("Mohamed");
+      .fill("OriginalLastName");
   }
   {
     const targetPage = page;
@@ -125,7 +125,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator(":scope >>> #email"),
     ])
       .setTimeout(timeout)
-      .fill("test@uia.no");
+      .fill("OriginalEmail@uia.no");
   }
   {
     const targetPage = page;
@@ -209,7 +209,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator(":scope >>> #phoneNumber"),
     ])
       .setTimeout(timeout)
-      .fill("48679768");
+      .fill("4867976844");
   }
   {
     const targetPage = page;
@@ -227,13 +227,14 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
         },
       });
   }
+
   {
     const targetPage = page;
     await puppeteer.Locator.race([
       targetPage.locator("#Register"),
       targetPage.locator('::-p-xpath(//*[@id=\\"Register\\"])'),
       targetPage.locator(":scope >>> #Register"),
-      targetPage.locator("::-p-text(2024-03-28)"),
+      targetPage.locator("::-p-text(dateString)"),
     ])
       .setTimeout(timeout)
       .click({

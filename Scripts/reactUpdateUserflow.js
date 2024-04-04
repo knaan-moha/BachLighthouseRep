@@ -7,8 +7,8 @@ const browserPaths = {
   chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
-
-const performTasksAndGenerateReport = async (browserType, trails_num) => {
+let globalCounter = 1;
+const performTasksAndGenerateReport = async (browserType) => {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: null,
@@ -52,12 +52,13 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
   await lhFlow.startTimespan();
   {
     const targetPage = page;
+    console.log(`Updating record number ${globalCounter}`);
     await puppeteer.Locator.race([
-      targetPage.locator("tr:nth-of-type(1) a > i"),
+      targetPage.locator(`tr:nth-of-type(${globalCounter}) a`),
       targetPage.locator(
-        '::-p-xpath(//*[@id=\\"root\\"]/div/table/tbody/tr[1]/td[6]/a/i)'
+        `::-p-xpath(//*[@id="app"]/div/main/article/div/table/tbody/tr[${globalCounter}]/td[6]/a)`
       ),
-      targetPage.locator(":scope >>> tr:nth-of-type(1) a > i"),
+      targetPage.locator(`:scope >>> tr:nth-of-type(${globalCounter}) a`),
     ])
       .setTimeout(timeout)
       .click({
@@ -103,7 +104,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(mohamed)"),
     ])
       .setTimeout(timeout)
-      .fill("Kate");
+      .fill("UpdatedFirstName");
   }
   {
     const targetPage = page;
@@ -123,7 +124,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(teset)"),
     ])
       .setTimeout(timeout)
-      .fill("Lobkovskaya");
+      .fill("UpdatedLastName");
   }
   {
     const targetPage = page;
@@ -171,7 +172,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(test@uia.no)"),
     ])
       .setTimeout(timeout)
-      .fill("kate@uia.no");
+      .fill("UpdatedEmail@uia.no");
   }
   {
     const targetPage = page;
@@ -229,7 +230,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
       targetPage.locator("::-p-text(544584)"),
     ])
       .setTimeout(timeout)
-      .fill("48679768");
+      .fill("456997733");
   }
   {
     const targetPage = page;
@@ -318,7 +319,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
 
   fs.mkdirSync(reportPath, { recursive: true });
 
-  const reportFilename = `reactUpdate${trails_num}ReportLight.html`;
+  const reportFilename = `reactUpdate${globalCounter}ReportLight.html`;
   try {
     fs.writeFileSync(path.join(reportPath, reportFilename), lhFlowReport);
     //console.log("Report saved successfully!");
@@ -326,6 +327,7 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
     console.error("Error saving the report:", error);
   }
   await browser.close();
+  globalCounter++;
 };
 
 (async () => {
@@ -337,14 +339,12 @@ const performTasksAndGenerateReport = async (browserType, trails_num) => {
     for (let trailNumber = 1; trailNumber <= 2; trailNumber++) {
       console.log(`Starting trial ${trailNumber}...`);
 
-      await performTasksAndGenerateReport(browserType, trailNumber).catch(
-        (err) => {
-          console.error(
-            `Error in trail ${trailNumber} with ${browserType}:`,
-            err
-          );
-        }
-      );
+      await performTasksAndGenerateReport(browserType).catch((err) => {
+        console.error(
+          `Error in trail ${trailNumber} with ${browserType}:`,
+          err
+        );
+      });
     }
   }
 })();
