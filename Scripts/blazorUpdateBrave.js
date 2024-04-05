@@ -312,7 +312,7 @@ const performTasksAndGenerateReport = async (browserType) => {
     console.log(`Performance Measuring with browser  ${browserType}...`);
 
     //? trails
-    for (let trailNumber = 1; trailNumber <= 2; trailNumber++) {
+    for (let trailNumber = 1; trailNumber <= 20; trailNumber++) {
       console.log(`Starting trial ${trailNumber}...`);
 
       await performTasksAndGenerateReport(browserType).catch((err) => {

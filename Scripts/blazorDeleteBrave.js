@@ -83,7 +83,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
   await browser.close();
 };
 (async () => {
-  for (let trialNumber = 1; trialNumber <= 2; trialNumber++) {
+  for (let trialNumber = 1; trialNumber <= 20; trialNumber++) {
     console.log(`Starting trial ${trialNumber}...`);
     await performTasksAndGenerateReport(trialNumber).catch((err) => {
       console.error(`Error in trial ${trialNumber}:`, err);
