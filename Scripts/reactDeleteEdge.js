@@ -15,7 +15,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
     executablePath: browserPaths[browserType],
   });
   const page = await browser.newPage();
-  const timeout = 5000;
+  const timeout = 10000;
   page.setDefaultTimeout(timeout);
 
   const lhApi = await import("lighthouse"); // v10.0.0 or later

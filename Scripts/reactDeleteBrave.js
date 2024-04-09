@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer"); // v20.7.4 or later
 const browserPaths = {
-  //edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-  // chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  // edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+  //chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
 const browserType = "brave";
@@ -15,7 +15,7 @@ const performTasksAndGenerateReport = async (trails_num) => {
     executablePath: browserPaths[browserType],
   });
   const page = await browser.newPage();
-  const timeout = 5000;
+  const timeout = 10000;
   page.setDefaultTimeout(timeout);
 
   const lhApi = await import("lighthouse"); // v10.0.0 or later

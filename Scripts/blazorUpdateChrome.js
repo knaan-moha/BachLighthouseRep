@@ -27,7 +27,7 @@ const performTasksAndGenerateReport = async (browserType) => {
   };
   const config = lhApi.desktopConfig;
   const lhFlow = await lhApi.startFlow(page, {
-    name: "blazorUpadate",
+    name: "blazorUpdate",
     config,
     flags,
   });

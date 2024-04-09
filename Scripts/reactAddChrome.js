@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer"); // v20.7.4 or later
 const path = require("path");
 
 const browserPaths = {
-  // edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+  //edge: "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
   chrome: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   // brave: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
 };
