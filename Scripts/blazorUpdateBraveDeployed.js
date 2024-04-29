@@ -34,8 +34,8 @@ const performTasksAndGenerateReport = async (browserType) => {
   {
     const targetPage = page;
     await targetPage.setViewport({
-      width: 2560,
-      height: 1154,
+      width: 1350,
+      height: 940,
     });
   }
   await lhFlow.startNavigation();
